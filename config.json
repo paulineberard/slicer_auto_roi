@@ -1,0 +1,7 @@
+{
+    "VolumeBaseName": "2: A PERFORANTES",
+    "InitialPointIJK": [252, 148, 294],
+    "RoiName": "MyCustomROI",
+    "RoiSize": [50, 50, 50],
+    "RoiCenteringFace": "front"
+}
