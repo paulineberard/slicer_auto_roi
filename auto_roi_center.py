@@ -10,43 +10,24 @@ with open("C:\projects\slicer_auto_roi\config.json", "r") as f:
 print("Data from config.json:")
 print(data)
 
-print("Converting IJK to RAS coordinates...")
-volumeBaseName = data.get("VolumeBaseName", "DefaultVolume")
-
-# Get the reference volume (scanner)
-volumeNode = slicer.util.getNode(volumeBaseName)
-if volumeNode is None:
-    print("ERROR: Can't find the volume node with base name:", volumeBaseName)
-    exit()
-
-ijkPoint = data.get("InitialPointIJK", [0, 0, 0])
-
-ijkToRasMatrix = vtk.vtkMatrix4x4()
-volumeNode.GetIJKToRASMatrix(ijkToRasMatrix)
-
-print("Applying IJK to RAS transformation...")
-rasPoint = [0, 0, 0, 1]  # Adding 1 for the homogeneous coordinates
-ijkToRasMatrix.MultiplyPoint(ijkPoint + [1], rasPoint)
-
-print("Initial IJK point :", ijkPoint)
-print("Converted to RAS point :", rasPoint[:3])
-
-print("Creating ROI node...")
+print("Getting ROI node...")
 roiName = data.get("RoiName", "AutoROI")
-roiSize = data.get("RoiSize", [50, 50, 50])
-roiInitialCenterRAS = rasPoint[:3]
-roiFinalCenterRAS = data.get("RoiFinalCenterRAS", None)
 
-roiNode = slicer.mrmlScene.AddNewNodeByClass("vtkMRMLMarkupsROINode")
-roiNode.SetName(roiName)
-roiNode.SetSize(roiSize)
-roiNode.SetCenter(roiInitialCenterRAS)
-print("ROI node created with name:", roiName)
+try:
+    roiNode = slicer.util.getNode(roiName)
+    if roiNode and roiNode.IsA("vtkMRMLMarkupsROINode"):
+        print("ROI node found with name:", roiName)
+    else:
+        print("No ROI node found with name:", roiName)
+except slicer.util.MRMLNodeNotFoundException:
+    print("No ROI node found with name:", roiName)
 
-# Sélectionner la face sur laquelle centrer le ROI (exemple : face supérieure)
+roiInitialCenterRAS = roiNode.GetCenter()
+roiSize = roiNode.GetSize() 
+
+# Get the ROI centering face
 roiCenteringFace = data.get("RoiCenteringFace", "none")
 print("Centering ROI on face:", roiCenteringFace)
-
 
 if roiCenteringFace == "none":
     roiFinalCenterRAS = roiInitialCenterRAS
