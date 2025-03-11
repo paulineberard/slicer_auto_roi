@@ -42,28 +42,3 @@ roiNode.SetName(roiName)
 roiNode.SetSize(roiSize)
 roiNode.SetCenter(roiInitialCenterRAS)
 print("ROI node created with name:", roiName)
-
-# Sélectionner la face sur laquelle centrer le ROI (exemple : face supérieure)
-roiCenteringFace = data.get("RoiCenteringFace", "none")
-print("Centering ROI on face:", roiCenteringFace)
-
-
-if roiCenteringFace == "none":
-    roiFinalCenterRAS = roiInitialCenterRAS
-elif roiCenteringFace == "top":
-    roiFinalCenterRAS = [roiInitialCenterRAS[0], roiInitialCenterRAS[1], roiInitialCenterRAS[2] + roiSize[2] / 2]
-elif roiCenteringFace == "bottom":
-    roiFinalCenterRAS = [roiInitialCenterRAS[0], roiInitialCenterRAS[1], roiInitialCenterRAS[2] - roiSize[2] / 2]
-elif roiCenteringFace == "front":
-    roiFinalCenterRAS = [roiInitialCenterRAS[0], roiInitialCenterRAS[1] + roiSize[1] / 2, roiInitialCenterRAS[2]]
-elif roiCenteringFace == "back":
-    roiFinalCenterRAS = [roiInitialCenterRAS[0], roiInitialCenterRAS[1] - roiSize[1] / 2, roiInitialCenterRAS[2]]
-elif roiCenteringFace == "right":
-    roiFinalCenterRAS = [roiInitialCenterRAS[0] + roiSize[0] / 2, roiInitialCenterRAS[1], roiInitialCenterRAS[2]]
-elif roiCenteringFace == "left":
-    roiFinalCenterRAS = [roiInitialCenterRAS[0] - roiSize[0] / 2, roiInitialCenterRAS[1], roiInitialCenterRAS[2]]
-
-print("Final ROI center:", roiFinalCenterRAS)
-print("Setting final ROI center...")
-roiNode.SetCenter(roiFinalCenterRAS)
-
