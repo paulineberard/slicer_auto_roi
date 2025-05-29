@@ -4,7 +4,7 @@ print("====== Auto ROI Create ======")
 
 # Load the configuration from config.json
 print("Loading configuration from config.json...")
-with open("C:\projects\slicer_auto_roi\config.json", "r") as f:
+with open("/Users/paulineberard/workspace/slicer_auto_roi/config.json", "r", encoding="utf-8") as f:
     data = json.load(f)
 
 print("Data from config.json:")
