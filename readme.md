@@ -67,8 +67,14 @@ Ce fichier de documentation.
 2. Ouvrez la console Python (menu **View → Python Interactor** ou utilisez le raccourci `Ctrl+3` / `Cmd+3`)
 3. Exécutez le script de création en tapant dans la console :
 
+Pour Windows :
 ```python
 exec(open(r"C:\projects\slicer_auto_roi\auto_roi_create.py").read())
+```
+
+Pour MacOS : 
+```python
+exec(open(r"/Users/paulineberard/workspace/slicer_auto_roi/auto_roi_create.py").read())
 ```
 
 Ce script va :
