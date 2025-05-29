@@ -1,4 +1,5 @@
 {
+    "PatientNbr": "126323",
     "VolumeBaseName": "2: A PERFORANTES",
     "InitialPointIJK": [252, 148, 294],
     "RoiName": "MyCustomROI",
